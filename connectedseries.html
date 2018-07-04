@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>W3.CSS</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<script type="text/javascript">
+	function addElement () { 
+	  
+	  var newDiv = document.createElement("div"); 
+	  
+	  var newContent = document.createTextNode("Hi there and greetings!"); 
+	 
+	  newDiv.appendChild(newContent);  
+
+	  var currentDiv = document.getElementById("box"); 
+	  document.body.appendChild(newDiv, currentDiv); 
+	}
+var list = new Set(); 
+	function RandomFill(){
+			for(var i=1;i<6;i++){
+				for(var j=1;j<6;j++){
+					var number = Math.random();
+					if(number >= 0.5)
+						number = 0;
+					else
+						number = 1;
+						document.getElementById("c"+j+"r"+i).innerHTML = number;
+			}
+		}
+		list = new Set();
+	}
+	function calculate(){
+		var row = 6;
+		var col = 6;
+		var x = new Array(row);
+		   for (var i = 1; i < row; i++) {
+		   	for(var j = 1;j< col; j++){
+		       x[i] = new Array();
+		       }}
+		   for (var i = 1; i < row; i++) {
+		   	for(var j = 1;j< col; j++){
+		       x[i].push(document.getElementById("c"+j+"r"+i).innerHTML);}
+		       }	
+		var ret = findmaxseries(x, row, col);
+	
+	}
+	function findmaxseries( arr,  row, col){
+
+		var size=0;
+		var maxsize =0;
+		var arbiArr = create2darr(row, col);
+		for(var i = 0;i<row;i++){
+			for(var j=0;j<col; j++){
+				findMaxSeries(arr, i, j, row, col, 0, arbiArr, maxsize)
+			}
+		}
+		
+		console.log(list);
+		var myArr = Array.from(list);
+		myArr.reverse();
+		console.log(myArr[0]-1);
+		var number = myArr[0]-1;
+		document.getElementById("answer").innerHTML = "Longest series |  "+number;
+		return maxsize;
+	}
+	function create2darr(row, col){
+		var x = new Array(row);
+		   for (var i = 0; i < row; i++) {
+		   	for(var j = 0;j< col; j++){
+		       x[i] = new Array();
+		       }}
+		return x;
+	}
+	
+	function findMaxSeries(arr, r, c, row, col, size, arbiArr,  maxsize ){
+		if(r>=row || c>=col)
+			return;
+		
+		arbiArr[r][c]=true;
+		size++;
+		if(size>maxsize){
+			maxsize = size;
+			list.add(maxsize);
+		}
+	
+		var a = new Array(row);
+		   for (var i = 0; i < 8; i++) {
+		   	for(var j = 0;j < 2; j++){
+		       a[i] = new Array();
+		       }}
+		    a[0].push(-1, 0);
+		    a[1].push(-1, -1);
+		    a[2].push(1, 0);
+		    a[3].push(0, -1);
+		    a[4].push(1, -1);
+		    a[5].push(1, 1);
+		    a[6].push(0, 1);
+		    a[7].push(-1, 1);
+		// console.log(arbiArr);
+		for (var index = 0; index < 8; index++){
+			var newi = r + a[index][0];
+			var newj = c + a[index][1];
+			var val = getval(arr, newi, newj, row, col);
+			if (val>0 && arbiArr[newi][newj] == false){
+				findMaxSeries(arr, newi, newj, row, col, size, arbiArr, maxsize);
+			}
+		}
+		arbiArr[r][c]=false;
+	}
+			
+	
+	function getval( A1, i, j, L, H)
+	{
+	if (i < 1 || i >= L || j < 0 || j >= H){
+		return 0;
+	}
+	else{
+		return A1[i][j];
+	}
+}
+	</script>
+	<style>
+		.name{
+			color:red;
+			border: 1px solid black;
+		}
+		.textI{
+			padding:0px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="w3-container w3-green">
+		  <h3>Connected Series Question | Code:Play</h3>
+	</div> 
+	<div style="margin-left: auto; margin-right: auto; width: 70%;">
+		 <div class="w3-margin w3-panel w3-blue w3-round">
+		  <p>Finding the length of connected cells of 1s (regions) in an matrix of 0's and 1's</p>
+		</div> 
+	</div>
+	<div style="margin-left: auto; margin-right: auto; width: 70%;">
+		 <div class="w3-margin w3-panel w3-white w3-round">
+		  <p>
+		  	Given matrix, each of which may be 1 or 0. The filled cells that are connected form a region. <br/>
+		  	Two cells are said to be connected if they are adjacent to each other <br/>
+		  	horizontally, vertically, or diagonally. <br/>
+		  	There may be multiple regions in the matrix.
+		  </p>
+		</div> 
+	</div>
+	<div class="w3-container w3-center w3-large w3-margin w3-text-orange" id="answer">
+		Longest series |  0
+	</div>
+		<div id="r1" style="margin-left: auto; margin-right: auto;width: 20%;">
+			<div id="c1r1" class="w3-col w3-border w3-round" style="width:20%; margin:0px; padding:0px;">
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c2r1" class="w3-col w3-border " style="width:20%" >
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c3r1" class="w3-col w3-border"  style="width:20%">
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c4r1" class="w3-col w3-border" style="width:20%">
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c5r1" class="w3-col w3-border w3-round" style="width:20%" >
+				<input class="w3-input textI" type="text">
+			</div>
+		</div>
+		<div id="r2" style="margin-left: auto; margin-right: auto;width: 20%;">
+			<div id="c1r2" class="w3-col w3-border w3-round" style="width:20%; margin:0px; padding:0px;">
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c2r2" class="w3-col w3-border " style="width:20%" >
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c3r2" class="w3-col w3-border"  style="width:20%">
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c4r2" class="w3-col w3-border" style="width:20%">
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c5r2" class="w3-col w3-border w3-round" style="width:20%" >
+				<input class="w3-input textI" type="text">
+			</div>
+		</div>
+		<div id="r3" style="margin-left: auto; margin-right: auto;width: 20%;">
+			<div id="c1r3" class="w3-col w3-border w3-round" style="width:20%; margin:0px; padding:0px;">
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c2r3" class="w3-col w3-border " style="width:20%" >
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c3r3" class="w3-col w3-border"  style="width:20%">
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c4r3" class="w3-col w3-border" style="width:20%">
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c5r3" class="w3-col w3-border w3-round" style="width:20%" >
+				<input class="w3-input textI" type="text">
+			</div>
+		</div>
+		<div id="r4" style="margin-left: auto; margin-right: auto;width: 20%;">
+			<div id="c1r4" class="w3-col w3-border w3-round" style="width:20%; margin:0px; padding:0px;">
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c2r4" class="w3-col w3-border " style="width:20%" >
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c3r4" class="w3-col w3-border"  style="width:20%">
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c4r4" class="w3-col w3-border" style="width:20%">
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c5r4" class="w3-col w3-border w3-round" style="width:20%" >
+				<input class="w3-input textI" type="text">
+			</div>
+		</div>
+		<div id="r5" style="margin-left: auto; margin-right: auto;width: 20%;">
+			<div id="c1r5" class="w3-col w3-border w3-round" style="width:20%; margin:0px; padding:0px;">
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c2r5" class="w3-col w3-border " style="width:20%" >
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c3r5" class="w3-col w3-border"  style="width:20%">
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c4r5" class="w3-col w3-border" style="width:20%">
+				<input class="w3-input textI" type="text">
+			</div>
+			<div id="c5r5" class="w3-col w3-border w3-round" style="width:20%" >
+				<input class="w3-input textI" type="text">
+			</div>
+		</div>
+		<div id="box"></div>
+		<div class="w3-container" style="margin-left: auto; margin-right: auto; width: 70%;">
+			 <div class="w3-margin w3-center w3-round-xlarge">
+			  <button class="w3-button w3-white w3-border" onclick="RandomFill()">Fill Box Randomly</button> 
+			  	<button class="w3-button w3-deep-orange" onclick="calculate()">Calculate ! </button>
+			</div> 
+		</div>
+</body>
+</html>
